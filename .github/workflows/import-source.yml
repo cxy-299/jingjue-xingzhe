@@ -1,0 +1,59 @@
+name: Import verified source snapshot
+on:
+  push:
+    branches: [main]
+    paths: [source-bundle-manifest.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: source-import
+jobs:
+  import:
+    if: github.repository == 'cxy-299/jingjue-xingzhe'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify archives and restore directory tree
+        shell: python
+        run: |
+          from pathlib import Path
+          from zipfile import ZipFile
+          import hashlib,json,os
+          root=Path.cwd()
+          manifest=json.loads(Path('source-bundle-manifest.json').read_text('utf-8'))
+          assert manifest['repository']==os.environ['GITHUB_REPOSITORY']
+          seen=set();total=0
+          for part in manifest['parts']:
+              name=part['name']
+              assert Path(name).name==name and name.startswith('source-part-') and name.endswith('.zip')
+              p=root/name
+              assert p.stat().st_size==part['bytes']
+              assert hashlib.sha256(p.read_bytes()).hexdigest()==part['sha256'],name
+              with ZipFile(p) as z:
+                  assert z.testzip() is None
+                  assert len(z.infolist())==part['files']
+                  for item in z.infolist():
+                      rel=Path(item.filename)
+                      assert not rel.is_absolute() and '..' not in rel.parts
+                      assert rel.parts[0] not in {'.git','.github'}
+                      assert item.filename not in seen
+                      seen.add(item.filename)
+                      dest=root/rel;dest.parent.mkdir(parents=True,exist_ok=True)
+                      data=z.read(item);dest.write_bytes(data);total+=len(data)
+          assert len(seen)==manifest['source_files']
+          assert total==manifest['source_bytes']
+          assert hashlib.sha256(Path('PACKAGE_SHA256.json').read_bytes()).hexdigest()==manifest['package_manifest_sha256']
+          print('Verified and restored',len(seen),'files,',total,'bytes')
+          with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f:
+              f.write('## Source import verified\nRestored '+str(len(seen))+' files with SHA256-verified archives.\n')
+      - name: Check source checksums, Python syntax and FPGA dependencies
+        run: python3 scripts/check_submission_sources.py
+      - name: Publish browsable source tree
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -- source-bundle-manifest.json source-part-*.zip
+          git add --all
+          git diff --cached --quiet || git commit -m 'Import verified R20 robot sources, WeChat console and documentation'
+          git push origin HEAD:main
