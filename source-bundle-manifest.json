@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "repository": "cxy-299/jingjue-xingzhe",
+  "source_files": 5948,
+  "source_bytes": 229671447,
+  "parts": [
+    {
+      "name": "source-part-01.zip",
+      "sha256": "06f14541542cedf2b27bc4c576b4b1aff555962a8886c965c55f6ecc668b799b",
+      "bytes": 22624209,
+      "files": 873
+    },
+    {
+      "name": "source-part-02.zip",
+      "sha256": "79bb5ee12312f8e8c5f0a99c99c2361cab4cc32a115beb2942cc8d6af02fd3f2",
+      "bytes": 22857529,
+      "files": 341
+    },
+    {
+      "name": "source-part-03.zip",
+      "sha256": "536dd6fff0c84a0d399bf10e8bfdbe940116ae07f4f19f00921670969721a666",
+      "bytes": 23093515,
+      "files": 309
+    },
+    {
+      "name": "source-part-04.zip",
+      "sha256": "ae8d26e7ba3213092efee43b93b7380129458393c576b8a016e0853f8cd9b9ea",
+      "bytes": 22836762,
+      "files": 751
+    },
+    {
+      "name": "source-part-05.zip",
+      "sha256": "05fc85e6d4fb29f6176df842372228669ee9d7a283ed1a4a8c4fb7ca41944fd0",
+      "bytes": 22874133,
+      "files": 795
+    },
+    {
+      "name": "source-part-06.zip",
+      "sha256": "35d8f8286b97c3beba3784d8567f0d7c78a5418cb230f4286803ab22d4d41817",
+      "bytes": 23025022,
+      "files": 304
+    },
+    {
+      "name": "source-part-07.zip",
+      "sha256": "e6a21811e1d64dd26c6d42d7bf20466ac57bceed7f1fca99ee5ea9f3e7181071",
+      "bytes": 22799786,
+      "files": 829
+    },
+    {
+      "name": "source-part-08.zip",
+      "sha256": "e93e5c10c544edfd3801d610b73878f57decdd9d6df3e44c60dc34e6e96a9d88",
+      "bytes": 21377098,
+      "files": 801
+    },
+    {
+      "name": "source-part-09.zip",
+      "sha256": "4f97b88c16248730693b2527f40faff4077f7f4cbbc767f99d2fc33bfd625d98",
+      "bytes": 2546921,
+      "files": 516
+    },
+    {
+      "name": "source-part-10.zip",
+      "sha256": "d4b7fc59fa14b5eb768645011e8508b89038512d11476bf846bf1399c9b3dc97",
+      "bytes": 9157405,
+      "files": 428
+    },
+    {
+      "name": "source-part-11.zip",
+      "sha256": "9afae72ebb6967693520500137ab2bf0d959b4006e4192784218099fe82ae60a",
+      "bytes": 5026151,
+      "files": 1
+    }
+  ],
+  "package_manifest_sha256": "66b36208f3b6ad00e47af65ac62a18b6ddd77c267cc301575cbea246324296f5"
+}
