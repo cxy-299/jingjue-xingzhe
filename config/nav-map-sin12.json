@@ -1,0 +1,66 @@
+{
+  "map_id": 9747,
+  "name": "SIN12 四障碍宽通道地图 R1",
+  "size_m": 2.0,
+  "grid_cells": 20,
+  "cell_m": 0.1,
+  "origin": "bottom_left",
+  "robot_width_m": 0.22,
+  "clearance_m": 0.05,
+  "inflation_radius_m": 0.21,
+  "start_cell": [
+    17,
+    2
+  ],
+  "example_goal_cell": [
+    10,
+    17
+  ],
+  "obstacles": [
+    {
+      "id": "A",
+      "min_cell": [
+        11,
+        4
+      ],
+      "size_cells": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "B",
+      "min_cell": [
+        6,
+        9
+      ],
+      "size_cells": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "C",
+      "min_cell": [
+        13,
+        13
+      ],
+      "size_cells": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "D",
+      "min_cell": [
+        4,
+        15
+      ],
+      "size_cells": [
+        1,
+        1
+      ]
+    }
+  ],
+  "robot_length_m": 0.2
+}

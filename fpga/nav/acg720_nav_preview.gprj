@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gowin-fpga-project>
+<Project>
+    <Template>FPGA</Template>
+    <Version>5</Version>
+    <Device name="GW5AT-60B" pn="GW5AT-LV60PG484AC1/I0">gw5at60b-002</Device>
+    <FileList>
+        <File path="../uart_rx.v" type="file.verilog" enable="1"/>
+        <File path="../vision_packet_parser.v" type="file.verilog" enable="1"/>
+        <File path="../vision_uart_bridge.v" type="file.verilog" enable="1"/>
+        <File path="fixed_grid_bfs.v" type="file.verilog" enable="1"/>
+        <File path="acg720_nav_preview.v" type="file.verilog" enable="1"/>
+        <File path="acg720_nav_preview.cst" type="file.cst" enable="1"/>
+        <File path="acg720_nav_preview.sdc" type="file.sdc" enable="1"/>
+    </FileList>
+</Project>

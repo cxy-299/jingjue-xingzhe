@@ -1,0 +1,21 @@
+// Temporary single-ToF test only. Disconnect Bluetooth while using E16.
+IO_LOC "clk_50m_i" Y18;
+IO_PORT "clk_50m_i" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_LOC "key_s0_n_i" F15;
+IO_PORT "key_s0_n_i" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_LOC "tof_uart_rx_i" E16;
+IO_PORT "tof_uart_rx_i" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+IO_LOC "diag_uart_tx_o" M15;
+IO_PORT "diag_uart_tx_o" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_LOC "led_o[0]" L21;
+IO_LOC "led_o[1]" K21;
+IO_LOC "led_o[2]" K22;
+IO_LOC "led_o[3]" J22;
+IO_LOC "led_o[4]" H22;
+IO_LOC "led_o[5]" M21;
+IO_PORT "led_o[0]" IO_TYPE=LVCMOS33 DRIVE=8;
+IO_PORT "led_o[1]" IO_TYPE=LVCMOS33 DRIVE=8;
+IO_PORT "led_o[2]" IO_TYPE=LVCMOS33 DRIVE=8;
+IO_PORT "led_o[3]" IO_TYPE=LVCMOS33 DRIVE=8;
+IO_PORT "led_o[4]" IO_TYPE=LVCMOS33 DRIVE=8;
+IO_PORT "led_o[5]" IO_TYPE=LVCMOS33 DRIVE=8;

@@ -1,0 +1,28 @@
+# Python / local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv*/
+venv/
+node_modules/
+# Local secrets and WeChat developer settings
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+project.private.config.json
+# Generated builds, simulation libraries and runtime logs
+output/
+logs/
+tmp/
+**/impl/
+**/work/
+**/xsim.dir/
+*.log
+*.wlf
+*.vcd
+transcript
+*.zip
+*.rar
+# The checked-in reference firmware and reproducibility evidence are intentional.

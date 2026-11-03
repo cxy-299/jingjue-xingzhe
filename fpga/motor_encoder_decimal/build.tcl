@@ -1,0 +1,4 @@
+open_project acg720_motor_encoder_decimal.gprj
+set_option -top_module acg720_motor_encoder_decimal
+set_option -user_code 454D5232
+run all

@@ -1,0 +1,84 @@
+camera:
+  backend: picamera2
+  width: 640
+  height: 480
+  fps: 20
+  flip_horizontal: false
+  flip_vertical: false
+  # 当前实验室使用荧光灯。启动后先自动校色，再锁定，避免色调漂移。
+  # 换到自然光环境时可改为 daylight；设为 auto 可持续自动调整。
+  awb_mode: fluorescent
+  awb_lock_after_s: 3.0
+  # 2026-09-23 使用镜头前白纸精确校准；顺序为 [红色增益, 蓝色增益]。
+  colour_gains: [2.40, 1.73]
+
+# A4 printed-digit strategy. Runtime uses OpenCV, not the legacy YOLO model.
+perception:
+  backend: a4_digits
+  a4_digits:
+    min_score: 0.86
+    min_margin: 0.045
+
+# Kept only for an explicit backend:yolo rollback; ignored in A4 mode.
+model:
+  path: yolo11n.pt
+  conf_threshold: 0.45
+  iou_threshold: 0.50
+  imgsz: 416
+  device: cpu
+
+target:
+  # Portrait A4, one large black printed digit per sheet, 0-9.
+  class_names: ["a4_digit_0", "a4_digit_1", "a4_digit_2", "a4_digit_3", "a4_digit_4", "a4_digit_5", "a4_digit_6", "a4_digit_7", "a4_digit_8", "a4_digit_9"]
+  selection: largest
+  min_area_ratio: 0.002
+  # Legacy semantic backend option only; A4 digit identity never uses red filtering.
+  red_bottle:
+    enabled: false
+    min_red_ratio: 0.12
+
+serial:
+  # 当前接线：树莓派 USB-A -> ACG720 板载 CH340E Type-C。
+  # 自动模式仅在恰好发现一个 CH340 时打开；多个设备请填 /dev/serial/by-id/...。
+  enabled: true
+  port: auto_usb_ch340
+  baudrate: 115200
+  timeout: 0.0
+  write_timeout: 0.1
+  reconnect_interval_s: 2.0
+  heartbeat_interval_ms: 500
+
+navigation:
+  # 默认只允许 GUI 选点和路线预览。FPGA 断电时务必保持 false。
+  # 仅在现场确认板上运行 NAV3 的 LED-only 位流、且串口和供电正常后，
+  # 才可临时改为 true 验收“终点坐标到 FPGA”；这不代表电机导航可用。
+  # 将来切换到电机位流前，应重新完成急停、定位闭环和运动安全验收。
+  goal_tx_enabled: false
+  # 开启时另设一个只在现场使用的口令；不要提交真实口令到仓库。
+  control_token: ""
+
+visual_alignment:
+  center_target: 5000
+  center_deadband: 0.08
+  max_vy: 0.22
+  lateral_gain: 1.15
+  smoothing_alpha: 0.35
+  search_omega: 0.20
+  target_confirm_frames: 2
+  lost_confirm_frames: 2
+
+# UDP 仅用于电脑模拟 FPGA；比赛实机保持 false，只使用上面的 UART。
+mock_fpga:
+  enabled: false
+  host: 127.0.0.1
+  port: 9999
+
+# 无显示器/SSH运行时保持false，性能也更好。
+display:
+  enabled: false
+  show_all_detections: true
+  show_fps: true
+  window_name: LingShu Vision Pi
+
+runtime:
+  print_interval_s: 0.5

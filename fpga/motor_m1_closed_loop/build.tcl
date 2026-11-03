@@ -1,0 +1,4 @@
+open_project acg720_motor_m1_closed_loop.gprj
+set_option -top_module acg720_motor_m1_closed_loop
+set_option -user_code 4D31434C
+run all

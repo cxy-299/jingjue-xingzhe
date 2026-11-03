@@ -1,0 +1,17 @@
+[Unit]
+Description=LingShu Raspberry Pi YOLO Web GUI
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+WorkingDirectory=/home/pi/ling_shu_vision
+ExecStart=/home/pi/ling_shu_vision/run_pi_gui.sh
+Restart=on-failure
+RestartSec=3
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

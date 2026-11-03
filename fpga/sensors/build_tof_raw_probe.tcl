@@ -1,0 +1,4 @@
+open_project acg720_tof_single_raw_probe.gprj
+set_option -top_module tof_single_raw_probe
+set_option -user_code 544F4652
+run all

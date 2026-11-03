@@ -1,0 +1,4 @@
+open_project acg720_motor_m1_toggle_dc.gprj
+set_option -top_module acg720_motor_m1_toggle_dc
+set_option -user_code 4D314443
+run all

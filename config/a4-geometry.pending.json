@@ -1,0 +1,28 @@
+{
+  "enabled": false,
+  "calibration_file": null,
+  "purpose": "A4 task replaces bottle setup. Never reuse the measured225mm bottle height.",
+  "paper_contract": {
+    "width_mm": 210,
+    "height_mm": 297,
+    "orientation": "portrait",
+    "top_corner_markers": true,
+    "physical_print_scale_verified": false
+  },
+  "required_camera_measurements": {
+    "fx_px": null,
+    "fy_px": null,
+    "cx_px": null,
+    "cy_px": null
+  },
+  "required_tof_measurements": {
+    "x_mm": null,
+    "y_mm": null,
+    "z_mm": null,
+    "yaw_left_deg": null,
+    "pitch_down_deg": null
+  },
+  "capture_age_bound_ms": null,
+  "field_verified": false
+}
+

@@ -1,0 +1,9 @@
+{
+  "description": "境觉行者具身智能自主移动机器人 · 电脑中转驾驶台",
+  "miniprogramRoot": "miniprogram/",
+  "compileType": "miniprogram",
+  "appid": "touristappid",
+  "projectname": "jingjue-console",
+  "setting": {"es6": true, "enhance": true, "postcss": true, "minified": true, "urlCheck": true},
+  "packOptions": {"ignore": []}
+}

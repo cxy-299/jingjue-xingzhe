@@ -1,0 +1,36 @@
+{
+  "enabled": false,
+  "purpose": "Pending measurements only; not an enabled or usable calibration",
+  "calibration_file": null,
+  "measurement_provenance": {
+    "target_height_mm": {
+      "value": 225,
+      "source": "User reply 225mm to bottom-to-cap height question",
+      "recorded_at": "2026-10-31T11:50:42+08:00",
+      "scope": "This upright test bottle only; not every bottle or a cropped bbox"
+    }
+  },
+  "pending_calibration_document": {
+    "field_verified": false,
+    "target_class": "bottle",
+    "capture_age_bound_ms": null,
+    "calibration": {
+      "calibration_id": null,
+      "width": null,
+      "height": null,
+      "fx_px": null,
+      "fy_px": null,
+      "cx_px": null,
+      "cy_px": null,
+      "target_height_mm": 225,
+      "tof_x_mm": null,
+      "tof_y_mm": null,
+      "tof_z_mm": null,
+      "tof_yaw_left_deg": null,
+      "tof_pitch_down_deg": null,
+      "min_range_mm": null,
+      "max_range_mm": null
+    }
+  }
+}
+

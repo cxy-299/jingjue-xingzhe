@@ -1,0 +1,146 @@
+{
+  "passed": true,
+  "netlist_sha256": "f61d0ad4a9f59d11c705bac70d41073684313c6a075cc454c869ef8c2d9fd09a",
+  "hardware_access": false,
+  "active_constraints": [
+    {
+      "kind": "TC_CLOCK",
+      "state": "Actived",
+      "command": "create_clock -name clk_50m -period 20.000 [get_ports {clk_50m_i}]"
+    },
+    {
+      "kind": "TC_CLOCK",
+      "state": "Actived",
+      "command": "create_clock -name camera_pclk -period 13.333 [get_ports {camera_pclk}]"
+    },
+    {
+      "kind": "TC_GENERATED_CLOCK",
+      "state": "Actived",
+      "command": "create_generated_clock -name camera_serial_raw -source [get_ports {clk_50m_i}] -multiply_by 15 -divide_by 2 [get_pins {u_camera/u_pll/u_pll_0/PLLA_inst/CLKOUT0}]"
+    },
+    {
+      "kind": "TC_GENERATED_CLOCK",
+      "state": "Actived",
+      "command": "create_generated_clock -name camera_serial -source [get_pins {u_camera/u_pll/u_pll_0/PLLA_inst/CLKOUT0}] -divide_by 1 [get_pins {u_camera/u_startup/u_serial_gate/CLKOUT}]"
+    },
+    {
+      "kind": "TC_GENERATED_CLOCK",
+      "state": "Actived",
+      "command": "create_generated_clock -name camera_pixel -source [get_pins {u_camera/u_startup/u_serial_gate/CLKOUT}] -divide_by 5 [get_pins {u_camera/u_pixel_div/CLKOUT}]"
+    },
+    {
+      "kind": "TC_GENERATED_CLOCK",
+      "state": "Actived",
+      "command": "create_generated_clock -name camera_xclk -source [get_ports {clk_50m_i}] -divide_by 2 [get_pins {u_camera/u_pll/u_pll_0/PLLA_inst/CLKOUT1}]"
+    },
+    {
+      "kind": "TC_MULTICYCLE",
+      "state": "Actived",
+      "command": "set_multicycle_path -through [get_pins {u_camera/u_dvi/g_channel[0].u_serial/u_serializer/RESET u_camera/u_dvi/g_channel[1].u_serial/u_serializer/RESET u_camera/u_dvi/g_channel[2].u_serial/u_serializer/RESET u_camera/u_dvi/g_channel[3].u_serial/u_serializer/RESET}] -to [get_clocks {camera_serial}] -setup -end 16"
+    },
+    {
+      "kind": "TC_MULTICYCLE",
+      "state": "Actived",
+      "command": "set_multicycle_path -through [get_pins {u_camera/u_dvi/g_channel[0].u_serial/u_serializer/RESET u_camera/u_dvi/g_channel[1].u_serial/u_serializer/RESET u_camera/u_dvi/g_channel[2].u_serial/u_serializer/RESET u_camera/u_dvi/g_channel[3].u_serial/u_serializer/RESET}] -to [get_clocks {camera_serial}] -hold -end 15"
+    },
+    {
+      "kind": "TC_FALSE_PATH",
+      "state": "Actived",
+      "command": "set_false_path -to [get_pins {u_camera/u_startup/u_serial_gate/CEN}]"
+    },
+    {
+      "kind": "TC_FALSE_PATH",
+      "state": "Actived",
+      "command": "set_false_path -to [get_pins {u_camera/pixel_release_meta*/CLEAR u_camera/pixel_release_sync*/CLEAR}]"
+    },
+    {
+      "kind": "TC_CLOCK_GROUP",
+      "state": "Actived",
+      "command": "set_clock_groups -asynchronous -group [get_clocks {camera_pclk}] -group [get_clocks {clk_50m camera_serial_raw camera_serial camera_pixel camera_xclk}]"
+    },
+    {
+      "kind": "TC_REPORT_TIMING",
+      "state": "Actived",
+      "command": "report_timing -recovery -to [get_pins {u_camera/u_dvi/g_channel[0].u_serial/u_serializer/RESET u_camera/u_dvi/g_channel[1].u_serial/u_serializer/RESET u_camera/u_dvi/g_channel[2].u_serial/u_serializer/RESET u_camera/u_dvi/g_channel[3].u_serial/u_serializer/RESET}] -max_paths 24 -max_common_paths 3"
+    },
+    {
+      "kind": "TC_REPORT_TIMING",
+      "state": "Actived",
+      "command": "report_timing -removal -to [get_pins {u_camera/u_dvi/g_channel[0].u_serial/u_serializer/RESET u_camera/u_dvi/g_channel[1].u_serial/u_serializer/RESET u_camera/u_dvi/g_channel[2].u_serial/u_serializer/RESET u_camera/u_dvi/g_channel[3].u_serial/u_serializer/RESET}] -max_paths 24 -max_common_paths 3"
+    },
+    {
+      "kind": "TC_REPORT_TIMING",
+      "state": "Actived",
+      "command": "report_timing -recovery -max_paths 200 -max_common_paths 3"
+    },
+    {
+      "kind": "TC_REPORT_TIMING",
+      "state": "Actived",
+      "command": "report_timing -removal -max_paths 200 -max_common_paths 3"
+    },
+    {
+      "kind": "TC_REPORT_MIN_PULSE_WIDTH",
+      "state": "Actived",
+      "command": "report_min_pulse_width -nworst 100 -detail"
+    }
+  ],
+  "pixel_async_false_path_endpoints": [
+    "u_camera/pixel_release_meta_s1/CLEAR",
+    "u_camera/pixel_release_sync_s1/CLEAR"
+  ],
+  "pixel_register_connections": {
+    "pixel_release_sync_s1": {
+      "Q": "pixel_release_sync",
+      "D": "pixel_release_meta",
+      "CLK": "pixel_clk",
+      "CLEAR": "reset_hold",
+      "CE": "VCC"
+    },
+    "pixel_release_meta_s1": {
+      "Q": "pixel_release_meta",
+      "D": "VCC",
+      "CLK": "pixel_clk",
+      "CLEAR": "reset_hold",
+      "CE": "VCC"
+    }
+  },
+  "serializer_multicycle_endpoints": [
+    "u_camera/u_dvi/g_channel[0].u_serial/u_serializer/RESET",
+    "u_camera/u_dvi/g_channel[1].u_serial/u_serializer/RESET",
+    "u_camera/u_dvi/g_channel[2].u_serial/u_serializer/RESET",
+    "u_camera/u_dvi/g_channel[3].u_serial/u_serializer/RESET"
+  ],
+  "serializer_setup_cycles": 16,
+  "serializer_hold_cycles": 15,
+  "downstream_pixel_clear_and_bsram_reset_still_reported": true,
+  "external_io_delay_constraints": [],
+  "external_io_timing_signed_off": false,
+  "unconstrained_io_note": "SDC provides no board input/output delay budgets; absence of an unconstrained-IO table is not coverage. External DVP/other board IO timing remains unsigned.",
+  "process_config": {
+    "Replicate_Resources": true,
+    "Place_Option": "0",
+    "Route_Option": "2",
+    "Run_Timing_Driven": true,
+    "Optimization_Goal": "Timing",
+    "Max_Fanout": 1000,
+    "SSPI": true,
+    "JTAG": false,
+    "MSPI": false,
+    "USERCODE": "534E3254"
+  },
+  "source_hashes": {
+    "sin12_hdmi_system.sdc": "b5579acdfc138f6cb5b59fd8f9cad89c80b89b39661574c0dce3fee8cd9c2ad4",
+    "sin12_hdmi_system.cst": "d0481a1e55fea463b25180a1dd3dcbf0ae3912c55c00ce38490fc4a9332700ed",
+    "impl/pnr/sin12_hdmi_system.tr": "c68c7e096b4069a5a94a0922ed116aec04f0e8bee62d616fdd0251dc5a10847f",
+    "impl/pnr/device.cfg": "f3c1dd471cbfe098009e1b783f92ba46482798caf3065e8b9a4605905bc72d2a",
+    "impl/gwsynthesis/sin12_hdmi_system.vg": "f61d0ad4a9f59d11c705bac70d41073684313c6a075cc454c869ef8c2d9fd09a",
+    "impl/gwsynthesis/sin12_hdmi_system.prj": "b42e70b30e06dbfc7f1e5857746918e32757235d603ac36e22420c135b4a6ba8",
+    "impl/pnr/cmd.do": "5066287a9b02c4cd62ba70d6ce5da1714c3af92fa497ab27d71c7e168881782a"
+  },
+  "limitations": [
+    "MPW coverage incomplete",
+    "PR1014 PCLK ordinary entry",
+    "External DVP timing not signed",
+    "HDMI sensor text OSD absent"
+  ]
+}

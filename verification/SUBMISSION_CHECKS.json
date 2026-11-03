@@ -1,0 +1,15 @@
+{
+  "system": "境觉行者具身智能自主移动机器人",
+  "release": "R20/K14",
+  "offline_submission_tests": {
+    "passed": 9,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "hardware_source_manifest_items": 58,
+  "synthesis_project_dependencies": 52,
+  "python_sources": 320,
+  "production_rtl_and_constraints_byte_exact_files": 53,
+  "no_hardware_or_service_actions": true
+}

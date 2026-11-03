@@ -1,0 +1,17 @@
+{
+  "reviewed": true,
+  "source": "human",
+  "image_sha256": "9682722f4cb1ce95ff25db96041ecc1d7a4c37f37ef26ad3c43612f91b3a4347",
+  "width": 640,
+  "height": 480,
+  "boxes": [
+    [
+      254.46153846153845,
+      210.8450704225352,
+      381.53846153846155,
+      480.0
+    ]
+  ],
+  "negative": false,
+  "reviewed_utc": "2026-10-30T11:35:42.206055+00:00"
+}

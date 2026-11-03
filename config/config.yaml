@@ -1,0 +1,71 @@
+camera:
+  backend: opencv
+  source: 0
+  width: 1280
+  height: 720
+  fps: 30
+  flip_horizontal: true
+  flip_vertical: false
+
+model:
+  path: yolo11n.pt
+  conf_threshold: 0.45
+  iou_threshold: 0.50
+  imgsz: 640
+  device: cpu
+
+target:
+  class_names: ["person"]
+  selection: largest
+  min_area_ratio: 0.002
+
+serial:
+  enabled: false
+  port: COM3
+  baudrate: 115200
+  timeout: 0.0
+  write_timeout: 0.1
+  reconnect_interval_s: 2.0
+  heartbeat_interval_ms: 500
+
+display:
+  enabled: true
+  show_all_detections: true
+  show_fps: true
+  window_name: LingShu Vision - Vision + ToF Split Control
+
+# Raspberry Pi视觉侧只负责左右对位。
+visual_alignment:
+  center_target: 5000
+  center_deadband: 0.08
+  max_vy: 0.22
+  lateral_gain: 1.15
+  smoothing_alpha: 0.35
+  search_omega: 0.20
+  target_confirm_frames: 2
+  lost_confirm_frames: 2
+
+# 电脑上模拟的ToF；未来真实ToF接到ACG720时替换此模块。
+mock_tof:
+  start_mm: 1500
+  step_mm: 100
+  min_mm: 100
+  max_mm: 3000
+
+# 前后距离控制应放在FPGA/软核执行层。
+tof_distance_control:
+  target_mm: 500
+  deadband_mm: 50
+  hard_stop_mm: 250
+
+  # vx = Kp * (distance-target)，并限幅。
+  kp: 0.00035
+  max_vx: 0.28
+  min_vx: 0.04
+  smoothing_alpha: 0.35
+
+# 本机UDP仅替代物理UART线。
+mock_fpga:
+  enabled: true
+  host: 127.0.0.1
+  port: 9999

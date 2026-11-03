@@ -1,0 +1,19 @@
+{
+  "map_id": 9729,
+  "name": "赛题三固定障碍地图 v4-balanced",
+  "size_m": 2.0,
+  "grid_cells": 20,
+  "cell_m": 0.1,
+  "origin": "bottom_left",
+  "robot_width_m": 0.2,
+  "clearance_m": 0.05,
+  "inflation_radius_m": 0.15,
+  "start_cell": [18, 1],
+  "example_goal_cell": [2, 17],
+  "obstacles": [
+    {"id": "A", "min_cell": [11, 4], "size_cells": [2, 3]},
+    {"id": "B", "min_cell": [6, 9], "size_cells": [2, 2]},
+    {"id": "C", "min_cell": [13, 13], "size_cells": [2, 2]},
+    {"id": "D", "min_cell": [4, 15], "size_cells": [1, 2]}
+  ]
+}

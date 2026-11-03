@@ -1,0 +1,22 @@
+// ACG720-GW5AT60, GW5AT-LV60PG484AC1/I0.
+// Pin source: ACG720-138&60K common pin allocation table.
+IO_LOC "clk_50m_i" Y18;
+IO_PORT "clk_50m_i" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_LOC "key_s0_n_i" F15;
+IO_PORT "key_s0_n_i" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_LOC "pi_uart_rx_i" J21;
+IO_PORT "pi_uart_rx_i" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+// Physical LED0/LED1 are dedicated SSPI pins on this package, so the
+// acceptance design uses physical LED2..LED7 only.
+IO_LOC "led_o[0]" L21;
+IO_PORT "led_o[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_LOC "led_o[1]" K21;
+IO_PORT "led_o[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_LOC "led_o[2]" K22;
+IO_PORT "led_o[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_LOC "led_o[3]" J22;
+IO_PORT "led_o[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_LOC "led_o[4]" H22;
+IO_PORT "led_o[4]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_LOC "led_o[5]" M21;
+IO_PORT "led_o[5]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;

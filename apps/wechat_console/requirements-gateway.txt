@@ -1,0 +1,2 @@
+# Only the PC gateway launcher requires this. Offline mini-program demo has no dependencies.
+pyserial==3.5

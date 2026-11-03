@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "verified_local": "2026-11-02T14:33:02.349597+08:00",
+  "hardware_access": false,
+  "GUI_restarted": false,
+  "host_tests": 21,
+  "host_failures": 0,
+  "host_errors": 0,
+  "host_skipped": 0,
+  "host_xml_sha256": "d3c5b1115f405b860518964bdaa2ee062b2b841548a37c6bd9041f5b30d52f62",
+  "rtl": {
+    "passed": true,
+    "logs": {
+      "r20_second_adaptive.log": "f47d2086987d8e470ec602166c083272aed6b049d86f5b83e92a3a27e69ead77",
+      "r20_range854_escape.log": "2c3fcd9a31059849c3ea35e9620d40745ad54976f870fe17f7119e7ea6c5ba73",
+      "r20_tof_band_eq.log": "bfd5f2714969cf29771327af763ee16e6aaf3e82b62b47603302941543f874b8",
+      "r20_second_full_uart.log": "acaa9af2c505664da18f1c7ba1e4f15f0fcf29417944bb417808131457c92010",
+      "r20_uart_k14.log": "891fb7e733bef775e4258d8c126f3a8b6cabd8a0e89cdaa0db4d8fbb17d98128",
+      "r20_second_legacy19_left.log": "bfcd91767f05856f09d016f8bdb7c21d2c4d1b6d06074293d456aac15f700276",
+      "r20_second_legacy19_full.log": "f67c668372c4b5a8150bfe7cbb4f9288c702f3127d16113cc6ebcd3fb9426e27",
+      "r20_second_legacy18_left.log": "f404190037a58f4a149d9a064938d4d74f544aa2e8e8e65aa9ed629a70ce67c3"
+    },
+    "adaptive_positive_fractional_cases": 6,
+    "all400_cells_checked_each_case_no_map_clear": true,
+    "current_partly_occupied_cell_exit_only_if_stopped_pose_outside210": true,
+    "first_exit_axis_preserved_not_cell_center_snap": true,
+    "854mm_external_ideal_plant_point_y_mm": 1208,
+    "tof_band_boolean_equivalence_cases": 131072,
+    "tof_band_data_vectors": 16000,
+    "no_combinational_latency_added": true,
+    "UART_sensor_force_fixture": true,
+    "scaled_external_ticks_and_plant": true,
+    "mapped_or_whole_system_SDF": false,
+    "hardware_access": false
+  },
+  "mapped": {
+    "TOF": {
+      "passed": true,
+      "report_sha256": "9893007c8893dd3387cbde59c322479bbcfa68e9b97f4f7a8bd3527265f742a4",
+      "netlist_sha256": "f61d0ad4a9f59d11c705bac70d41073684313c6a075cc454c869ef8c2d9fd09a"
+    },
+    "TARGET": {
+      "passed": true,
+      "report_sha256": "7ecf3d007704782c3639baf86242d8db4fd21ac5920bc6b2932d008aec8c8c41",
+      "netlist_sha256": "f61d0ad4a9f59d11c705bac70d41073684313c6a075cc454c869ef8c2d9fd09a"
+    },
+    "NAV": {
+      "passed": true,
+      "report_sha256": "b1b99e727de4bd4548a99e680c0af5f84cf5ab897271726b22f0fe6e032af124",
+      "netlist_sha256": "f61d0ad4a9f59d11c705bac70d41073684313c6a075cc454c869ef8c2d9fd09a"
+    }
+  },
+  "internal_STA_checks": {
+    "sources_match": true,
+    "setup_zero": true,
+    "hold_zero": true,
+    "every_clock_tns_zero": true,
+    "six_clocks": true,
+    "true_frequencies": true,
+    "clocks_meet_fmax": true,
+    "positive_reported_slacks": true,
+    "serializer_rec_rem_coverage": true,
+    "global_rec_rem_coverage": true,
+    "sdc_unchanged": true,
+    "current_files": true,
+    "route2_timing1": true,
+    "gpio_release": true,
+    "device_release": true,
+    "usercode": true
+  },
+  "audit_sha256": "075df29c0c04fa0fc603d2124dae224c4522b8ea3270b10cf48ff53878e17a23",
+  "gui_red_box_widgets_hidden": true,
+  "task5_function_retained": true,
+  "protected_R19_mission_chassis_unchanged": true,
+  "vehicle_SDF_or_field_calibration_passed": false
+}

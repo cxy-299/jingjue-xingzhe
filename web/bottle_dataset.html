@@ -1,0 +1,69 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>瓶子实拍采集与人工标注</title>
+<style>
+body{font:16px system-ui,"Microsoft YaHei";background:#0c1725;color:#e9f2ff;max-width:1200px;margin:auto;padding:22px}
+section{padding:18px;background:#14243a;border:1px solid #30485f;border-radius:12px;margin:16px 0}
+button,select{font:inherit;padding:9px;margin:5px;border-radius:6px;background:#203d56;color:white;border:1px solid #526f85}
+button:disabled{opacity:.4}canvas{width:100%;max-width:800px;height:auto;touch-action:none;background:#05090e;border:1px solid #62778d}
+.hint{color:#a9bdd1;line-height:1.6}#notice{white-space:pre-wrap;color:#ffd08b}#count{color:#68e0a6}
+</style>
+<h1>瓶子实拍采集与人工标注</h1>
+<p class="hint">保持停车，用手摆放瓶子。相机固定在实际安装位置；ToF在相机右侧约3mm（待标定）。此页面只读取Pi原图，不控制小车。</p>
+<section><h2>1 · 采集一段</h2>
+<label>场景<select id="scene"><option value="full_bottle">完整瓶身，30cm–2m</option><option value="partial_near">近距局部/上下裁切</option><option value="transparent_reflection">透明瓶/水/反光</option><option value="left_right_edge">画面左右边缘</option><option value="multiple_bottles">多个瓶子</option><option value="negative_distractors">无瓶子/花瓶等干扰</option></select></label>
+<label>用途<select id="split"><option value="train">训练集</option><option value="val">验证集：换摆位/背景</option><option value="test">测试集：留作最终对照</option></select></label>
+<label>时长<select id="seconds"><option>30</option><option>60</option><option>120</option></select>秒</label>
+<button id="capture">开始采集</button><span id="count">未采集</span>
+<p class="hint">每段约每秒一帧，网络慢时会更少。采集期间缓慢改变摆位/角度，别遮住镜头；测试集不要参与调参。建议先收集300–600张有变化的图片，再补漏检场景。</p></section>
+<section><h2>2 · 标注可见的全部瓶子</h2>
+<select id="items" style="max-width:100%"></select><button id="refresh">刷新列表</button><p id="progress"></p>
+<canvas id="canvas" width="640" height="480"></canvas>
+<p class="hint">在原图上拖动框住每个瓶子的可见部分。所有瓶子都要框，不猜画外轮廓；不显示模型预测框，避免把预测误当真值。模糊不确定的图片可以跳过。</p>
+<button id="undo">撤销最后一框</button><button id="clear">清空本图框</button>
+<button id="save">确认全部瓶子已框完并保存</button><button id="negative">确认本图没有瓶子</button>
+<button id="previous">上一张</button><button id="next">下一张 / 跳过</button>
+</section>
+<section><h2>3 · 导出训练数据</h2>
+<button id="export">检查并导出人工审核数据</button>
+<p class="hint">每组有已审核图片即可导出；数量不足、缺少正/负样本会显示质量提醒。训练前另检查训练60张、验证15张、测试15张及独立会话。未标注图片会排除，不会当成负样本。</p>
+</section><p id="notice" role="status">准备就绪，未开始训练，也不会自动替换模型。</p>
+<script>
+const $=id=>document.getElementById(id), canvas=$('canvas'), ctx=canvas.getContext('2d');
+let items=[], index=-1, image=null, boxes=[], start=null, drag=null, dirty=false, saving=false;
+function say(s){$('notice').textContent=s;}
+async function post(url,data){const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+ const b=await r.json();if(!r.ok)throw Error(b.error||'操作失败');return b;}
+function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);if(image)ctx.drawImage(image,0,0);
+ ctx.strokeStyle='#54efa4';ctx.lineWidth=2;for(const b of [...boxes,...(drag?[drag]:[])])ctx.strokeRect(b[0],b[1],b[2]-b[0],b[3]-b[1]);}
+function load(i){if(!items.length){index=-1;image=null;boxes=[];draw();return;}
+ index=Math.max(0,Math.min(items.length-1,i));$('items').value=String(index);dirty=false;
+ boxes=(items[index].annotation?.boxes||[]).map(b=>b.slice());start=drag=null;image=null;draw();
+ const key=items[index].id, next=new Image();next.onload=()=>{if(items[index]?.id!==key)return;image=next;canvas.width=next.naturalWidth;canvas.height=next.naturalHeight;draw();};
+ next.src='/image?id='+encodeURIComponent(key);
+}
+async function refresh(){const r=await fetch('/api/items');const b=await r.json();if(!r.ok)throw Error(b.error);
+ const old=items[index]?.id;items=b.items;const select=$('items');select.replaceChildren();
+ items.forEach((it,i)=>{const o=document.createElement('option');o.value=String(i);o.textContent=`${it.annotation?'✓':'○'} ${it.split||'未分组'} · ${it.scene} · ${it.id}`;select.appendChild(o);});
+ const retained=items.findIndex(it=>it.id===old);if(retained<0&&items.length)load(0);else if(retained>=0){index=retained;select.value=String(index);}
+ const reviewed=items.filter(it=>it.annotation).length;$('progress').textContent=`共${items.length}张，已审核${reviewed}张。`;
+ $('count').textContent=`${b.collection.running?'采集中':'已停止采集'} · 本段${b.collection.count}张${b.collection.error?' · '+b.collection.error:''}`;
+ $('capture').disabled=b.collection.running;}
+function point(e){const r=canvas.getBoundingClientRect();return [Math.max(0,Math.min(canvas.width,(e.clientX-r.left)*canvas.width/r.width)),Math.max(0,Math.min(canvas.height,(e.clientY-r.top)*canvas.height/r.height))];}
+canvas.addEventListener('pointerdown',e=>{if(!image)return;start=point(e);canvas.setPointerCapture(e.pointerId);});
+canvas.addEventListener('pointermove',e=>{if(!start)return;const p=point(e);drag=[Math.min(start[0],p[0]),Math.min(start[1],p[1]),Math.max(start[0],p[0]),Math.max(start[1],p[1])];draw();});
+canvas.addEventListener('pointerup',()=>{if(drag&&drag[2]-drag[0]>=2&&drag[3]-drag[1]>=2){boxes.push(drag);dirty=true;}start=drag=null;draw();});
+canvas.addEventListener('pointercancel',()=>{start=drag=null;draw();});
+$('undo').onclick=()=>{boxes.pop();dirty=true;draw();};$('clear').onclick=()=>{boxes=[];dirty=true;draw();};
+function change(i){if(saving)return;if(dirty){say('本图还有未保存修改，请先保存；若需丢弃，可点击“刷新列表”后重新选择本图。');return;}load(i);}
+$('previous').onclick=()=>change(index-1);$('next').onclick=()=>change(index+1);
+$('items').onchange=e=>{const wanted=Number(e.target.value);if(dirty||saving){$('items').value=String(index);say('请先保存当前修改。');return;}load(wanted);};
+$('refresh').onclick=()=>{dirty=false;refresh().then(()=>load(Math.max(0,index))).catch(e=>say(e.message));};
+async function save(negative){if(saving||index<0||!image)return;if(negative&&boxes.length){say('本图已有瓶子框，请清空后再确认无瓶子。');return;}
+ saving=true;$('save').disabled=$('negative').disabled=true;
+ try{const key=items[index].id;await post('/api/annotation',{id:key,boxes,negative});dirty=false;await refresh();load(index+1);say('已保存人工审核结果。');}catch(e){say(e.message);}
+ finally{saving=false;$('save').disabled=$('negative').disabled=false;}}
+$('save').onclick=()=>save(false);$('negative').onclick=()=>save(true);
+$('capture').onclick=async()=>{try{await post('/api/capture',{scene:$('scene').value,split:$('split').value,seconds:Number($('seconds').value)});say('采集中，请在镜头前缓慢改变瓶子摆位。');await refresh();}catch(e){say(e.message);}};
+$('export').onclick=async()=>{try{const b=await post('/api/export',{});say('已导出：'+b.dataset+'\n排除未审核图片：'+(b.unreviewed_excluded||0)+'张。\n'+(b.warnings||[]).join('\n')+'\n这是候选训练数据，尚未开始训练。');}catch(e){say(e.message);}};
+refresh().catch(e=>say(e.message));setInterval(()=>refresh().catch(e=>say(e.message)),3000);
+</script></html>

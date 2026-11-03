@@ -1,0 +1,6 @@
+{
+  "pages": ["pages/index/index"],
+  "window": {"navigationBarTitleText": "境觉行者", "navigationBarBackgroundColor": "#0b1824", "navigationBarTextStyle": "white", "backgroundColor": "#07111b"},
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

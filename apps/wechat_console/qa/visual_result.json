@@ -1,0 +1,12 @@
+{
+  "scope": "WXML/WXSS DOM-adapter layout and demo only",
+  "wechat_runtime_tested": false,
+  "physical_phone_tested": false,
+  "hardware_connected": false,
+  "viewport_widths": [
+    390,
+    320
+  ],
+  "page_errors": [],
+  "passed": true
+}

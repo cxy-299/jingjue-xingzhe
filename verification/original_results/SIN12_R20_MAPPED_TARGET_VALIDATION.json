@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "vectors": 2172,
+  "internal_forces": false,
+  "hardware_access": false,
+  "scope": "full-system mapped target plus actual shared parent inversion DFF",
+  "full_system_functional_signoff": false,
+  "accept_port": "n1712_2",
+  "netlist_sha256": "f61d0ad4a9f59d11c705bac70d41073684313c6a075cc454c869ef8c2d9fd09a",
+  "shared_inversion_dff": "\n    .Q(inverted),\n    .D(\\g_heading.requested_inverted ),\n    .CLK(clk_50m_i_d),\n    .CLEAR(n177_5),\n    .CE(n1712_2) \n",
+  "dsp_count_in_target": 0,
+  "mapped_wrapper_sha256": "b5a77045acdbcc89cf5aee7d36993b25957249c36dfc41b2697e77b82e5e8890",
+  "mapped_source_sha256": "bdd13ac1f567831c3a726707ab1fd8f56b7099bd27c93b1f27e5e6dc939d10c2",
+  "testbench_sha256": "551e681dad20aa9945d15f4f249b15a9ba616df9e470d1cba069fea254514358"
+}

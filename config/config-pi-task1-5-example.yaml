@@ -1,0 +1,16 @@
+# Pi 任务1-5串口模式模板
+serial:
+  enabled: true
+  port: auto_usb_ch340
+  baudrate: 115200
+  protocol: binary_vision
+  motion_commands_enabled: false
+  timeout: 0.0
+  write_timeout: 0.1
+  reconnect_interval_s: 2.0
+  heartbeat_interval_ms: 500
+
+# 只有四轮离地、驱动板12V关闭且车控RX波特率确认后，才可临时改为：
+# baudrate: 9600
+# protocol: ascii_motion
+# motion_commands_enabled: true

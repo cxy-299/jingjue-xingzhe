@@ -1,0 +1,25 @@
+# 第二阶段导航地图草案；当前视觉/UART 程序不读取此文件，不会产生运动命令。
+map:
+  width_m: 2.0
+  height_m: 2.0
+  cell_size_m: 0.05
+  origin: bottom_left
+
+robot:
+  # 车宽暂按 0.20 m，另留 0.05 m 安全边距；尺寸实测后须更新。
+  width_m_estimate: 0.20
+  clearance_m: 0.05
+  obstacle_inflation_radius_m: 0.15
+
+start:
+  # 右下角贴边的是车体；车体中心不能放在地图边界坐标 (2, 0)。
+  center_x_m: 1.85
+  center_y_m: 0.15
+  # 暂按车头朝地图上方 (+Y)；装车后由用户实测确认。
+  heading_deg_assumed: 90
+
+goal: null  # 终点尚未指定，不能开始规划。
+obstacles:
+  static: []
+  randomly_placed_at_runtime: true
+  # 随机障碍不能写死进静态地图；后续由 ToF 检测并临时更新占据状态。

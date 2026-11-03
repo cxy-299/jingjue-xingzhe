@@ -1,0 +1,6 @@
+# Raspberry Pi OS Bookworm ARM64 固定版本。
+# Picamera2、OpenCV、PyTorch 及其科学计算依赖由 apt 管理，并通过
+# --system-site-packages 提供给虚拟环境。这里使用 --no-deps 安装，避免
+# pip 在 ARM64 上误拉取面向 NVIDIA CUDA 的新版 PyTorch 巨型依赖。
+ultralytics==8.3.0
+ultralytics-thop==2.0.8

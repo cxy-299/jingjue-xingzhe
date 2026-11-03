@@ -1,0 +1,4 @@
+open_project acg720_motor_three_calibrate.gprj
+set_option -top_module acg720_motor_three_calibrate
+set_option -user_code 4D334341
+run all

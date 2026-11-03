@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gowin-fpga-project>
+<Project>
+    <Template>FPGA</Template>
+    <Version>5</Version>
+    <Device name="GW5AT-60B" pn="GW5AT-LV60PG484AC1/I0">gw5at60b-002</Device>
+    <FileList>
+        <File path="../encoder_speed.v" type="file.verilog" enable="1"/>
+        <File path="../motor_pwm_dir.v" type="file.verilog" enable="1"/>
+        <File path="../uart_rx.v" type="file.verilog" enable="1"/>
+        <File path="../nav/nav_path_parser.v" type="file.verilog" enable="1"/>
+        <File path="../bluetooth_bringup/uart_tx_echo.v" type="file.verilog" enable="1"/>
+        <File path="../motor_four_closed_loop/acg720_motor_four_closed_loop.v" type="file.verilog" enable="1"/>
+        <File path="bt_motion_guard.v" type="file.verilog" enable="1"/>
+        <File path="motor_four_diag_uart.v" type="file.verilog" enable="1"/>
+        <File path="bt_combined_diag_uart.v" type="file.verilog" enable="1"/>
+        <File path="../nav/nav_route_executor.v" type="file.verilog" enable="1"/>
+        <File path="../sensors/imu_yahboom_uart.v" type="file.verilog" enable="1"/>
+        <File path="../sensors/tof_ms53l2m_ascii_uart.v" type="file.verilog" enable="1"/>
+        <File path="../sensors/tof_obstacle_guard.v" type="file.verilog" enable="1"/>
+        <File path="../sensors/sensor_task1_3_core.v" type="file.verilog" enable="1"/>
+        <File path="../sensors/sensor_status_uart.v" type="file.verilog" enable="1"/>
+        <File path="acg720_motor_bt_drive.v" type="file.verilog" enable="1"/>
+        <File path="acg720_motor_bt_nav.v" type="file.verilog" enable="1"/>
+        <File path="acg720_motor_bt_nav_10cm.v" type="file.verilog" enable="1"/>
+        <File path="acg720_motor_bt_drive.cst" type="file.cst" enable="1"/>
+        <File path="../motor_encoder_direction/acg720_motor_encoder_direction.sdc" type="file.sdc" enable="1"/>
+    </FileList>
+</Project>

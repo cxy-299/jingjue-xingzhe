@@ -1,0 +1,4 @@
+open_project acg720_motor_encoder_direction.gprj
+set_option -top_module acg720_motor_encoder_direction
+set_option -user_code 454D4431
+run all

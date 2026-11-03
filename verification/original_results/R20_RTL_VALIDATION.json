@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "logs": {
+    "r20_second_adaptive.log": "f47d2086987d8e470ec602166c083272aed6b049d86f5b83e92a3a27e69ead77",
+    "r20_range854_escape.log": "2c3fcd9a31059849c3ea35e9620d40745ad54976f870fe17f7119e7ea6c5ba73",
+    "r20_tof_band_eq.log": "bfd5f2714969cf29771327af763ee16e6aaf3e82b62b47603302941543f874b8",
+    "r20_second_full_uart.log": "acaa9af2c505664da18f1c7ba1e4f15f0fcf29417944bb417808131457c92010",
+    "r20_uart_k14.log": "891fb7e733bef775e4258d8c126f3a8b6cabd8a0e89cdaa0db4d8fbb17d98128",
+    "r20_second_legacy19_left.log": "bfcd91767f05856f09d016f8bdb7c21d2c4d1b6d06074293d456aac15f700276",
+    "r20_second_legacy19_full.log": "f67c668372c4b5a8150bfe7cbb4f9288c702f3127d16113cc6ebcd3fb9426e27",
+    "r20_second_legacy18_left.log": "f404190037a58f4a149d9a064938d4d74f544aa2e8e8e65aa9ed629a70ce67c3"
+  },
+  "adaptive_positive_fractional_cases": 6,
+  "all400_cells_checked_each_case_no_map_clear": true,
+  "current_partly_occupied_cell_exit_only_if_stopped_pose_outside210": true,
+  "first_exit_axis_preserved_not_cell_center_snap": true,
+  "854mm_external_ideal_plant_point_y_mm": 1208,
+  "tof_band_boolean_equivalence_cases": 131072,
+  "tof_band_data_vectors": 16000,
+  "no_combinational_latency_added": true,
+  "UART_sensor_force_fixture": true,
+  "scaled_external_ticks_and_plant": true,
+  "mapped_or_whole_system_SDF": false,
+  "hardware_access": false
+}

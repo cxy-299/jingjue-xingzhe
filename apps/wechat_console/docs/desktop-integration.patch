@@ -1,0 +1,117 @@
+--- baseline/pc_unified_console.py
++++ fpga/motor_bt_drive/pc_unified_console.py
+@@ -95,7 +95,7 @@
+             return "break"
+ 
+ 
+-def main() -> None:
++def main(*, remote_factory=None) -> None:
+     parser = argparse.ArgumentParser(description="SIN12 固定版本 · 运动/传感器/导航/视觉任务统一驾驶台")
+     parser.add_argument("--port", default="COM9", help="Windows 蓝牙 SPP 输出串口")
+     parser.add_argument("--connect", action="store_true", help="启动后连接蓝牙，仅初始化停止与速度档，不授权运动")
+@@ -118,6 +118,7 @@
+                 fixed.add(y * GRID + x)
+ 
+     root = tk.Tk()
++    remote_controller = None  # Only created by the explicit small-program launcher.
+     root.title(f"灵枢统一驾驶台 · {args.firmware} · 后台串口与任务状态")
+     root.geometry(f"{min(1200, root.winfo_screenwidth()-80)}x{min(900, root.winfo_screenheight()-100)}")
+     root.minsize(1040, 650)
+@@ -571,6 +572,8 @@
+         detail.set("不能确认停车指令已送达！立即关闭驱动板 12 V，检查蓝牙后再连接。")
+ 
+     def stop() -> None:
++        if remote_controller is not None:
++            remote_controller.note_local_stop()
+         stopped_direction = gate.held if gate else None
+         if control_mode.get()=="turn":control_mode.set("manual")
+         cancel_auto_loop()
+@@ -605,6 +608,8 @@
+ 
+     def press(direction: str, source: str = 'unspecified') -> None:
+         nonlocal repeat_timer, switch_after, pose_confirmed
++        if remote_controller is not None and source != 'wechat':
++            remote_controller.local_takeover()
+         if last_fault_bits & 0x10:
+             detail.set("FPGA 已锁存电机 PI 故障：停止试转，检查 12 V 与编码器，排除原因后短按 S0 复位。")
+             return
+@@ -1545,6 +1550,8 @@
+ 
+     def on_close() -> None:
+         stop()
++        if remote_controller is not None:
++            remote_controller.close()
+         close_link()
+         root.destroy()
+ 
+@@ -1800,6 +1807,70 @@
+     draw_map()
+     poll_serial()
+     poll_mission_reads()
++    if remote_factory is not None:
++        def remote_snapshot():
++            now=time.monotonic()
++            return dict(demo=False,name='境觉行者',connected=link is not None,
++                firmware=f'R{pid_version} / K{pid_version:02X}',firmware_confirmed=firmware_confirmed.get(),
++                capability_fresh=bool(pid_received and now-pid_received<2.0 and pid_version==20),
++                motion_allowed=motion_allowed.get(),mode=control_mode.get(),
++                direction=gate.held if gate and gate.held else 'S',
++                sensors=dict(distance_mm=last_distance_mm,yaw_deg=last_yaw_deg,
++                    tof_valid=last_tof_valid,imu_valid=last_imu_valid,fault=last_fault_bits,
++                    ready=bool(sensor_nav_clear and now-last_sensor_time<1.6 and last_tof_valid and last_imu_valid)),
++                wheels=dict(targets=list(sync_runtime.get('targets',[0]*4)),speeds=list(sync_runtime.get('speeds',[0]*4)),
++                    duties=list(sync_runtime.get('duties',[0]*4))),
++                map=dict(size=20,occupied=[i for i,v in enumerate(occupied) if v],current=list(current_cell),
++                    start=list(current_cell),goal=list(goal) if goal else None,route=[list(p) for p in route],
++                    measured=list(measured_cells),pose_confirmed=pose_confirmed),
++                tasks=dict(status=mission_status.get() if control_mode.get()=='mission' else auto_status.get() if control_mode.get()=='autonav' else follow_status.get(),
++                    active=bool(auto_enabled or mission_enabled or turn_enabled or follow_active),
++                    mission_id=mission_job.get('mission_id'),digit=mission_job.get('mission_class'),
++                    arrival_mm=mission_job.get('mission_distance_mm')),
++                detail=detail.get(),navigation_result=auto_result.get(),mission_result=mission_result.get(),
++                wheel_text=[wheel_lines[i].get() for i in range(1,5)])
++
++        def remote_dispatch(name,payload):
++            def mode(value):
++                if control_mode.get()!=value:control_mode.set(value);mode_changed()
++            def position(value):
++                if not isinstance(value,list) or len(value)!=2 or any(type(x) is not int or not 0<=x<20 for x in value):
++                    raise ValueError('坐标范围为0至19')
++                return value
++            if name in ('stop','manual.release'):stop()
++            elif name=='manual.move':
++                direction=payload.get('direction')
++                if direction not in ('F','B','L','R'):raise ValueError('方向错误')
++                mode('manual');button_mode.set('click');press(direction,source='wechat')
++            elif name=='manual.speed':
++                value=payload.get('value')
++                if value not in (12,16,20):raise ValueError('速度档位错误')
++                select_speed({12:'1',16:'2',20:'3'}[value])
++            elif name=='nav.preview':choose_goal(*position(payload.get('goal')))
++            elif name=='nav.pose':
++                x,y=position(payload.get('position'));cx.set(str(x));cy.set(str(y));confirm_position()
++            elif name=='nav.start':
++                setback=payload.get('setback_mm',0)
++                if type(setback) is not int or not -30<=setback<=50:raise ValueError('探头偏移范围-30至50mm')
++                mode('autonav');auto_setback.set(str(setback));start_auto()
++            elif name=='task.read':mode('mission');read_pi_mission()
++            elif name=='task.start':mode('mission');start_mission()
++            elif name=='follow.start':mode('follow');start_real_follow()
++            elif name=='follow.digit':mode('vision');start_visual_execution()
++            elif name=='turn.start':
++                direction=payload.get('direction')
++                if direction not in ('left','right'):raise ValueError('转向错误')
++                mode('turn');start_turn(1 if direction=='left' else -1)
++            elif name in ('avoid.enable','avoid.disable'):
++                stop();send_manual_control('A' if name=='avoid.enable' else 'a')
++            elif name=='pid.set':
++                values=[payload.get(key) for key in ('p','i','d')]
++                if any(type(v) is not int for v in values) or not(0<=values[0]<=32 and 0<=values[1]<=8 and 0<=values[2]<=32):raise ValueError('PID参数范围错误')
++                for var,value in zip((pid_p,pid_i,pid_d),values):var.set(str(value))
++                send_pid()
++            else:raise ValueError('不支持的远程操作')
++            return {'message':'请求已交给驾驶台；以板端回传确认执行','detail':detail.get()}
++        remote_controller=remote_factory(root,dict(container=live_status,snapshot=remote_snapshot,dispatch=remote_dispatch))
+     if args.connect:
+         root.after(150, connect)
+     root.mainloop()

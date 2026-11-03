@@ -1,0 +1,8 @@
+* -text
+# Preserve byte-exact frozen RTL, constraints, project inputs and checksum evidence.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pt binary
+*.fs binary
+*.epro2 binary

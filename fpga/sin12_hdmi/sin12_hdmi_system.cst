@@ -1,0 +1,130 @@
+// 四路电机、编码器、按键和串口使用已核对过的 ACG720 引脚。
+IO_LOC "clk_50m_i" Y18;
+IO_PORT "clk_50m_i" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_LOC "key_s0_n_i" F15;
+IO_PORT "key_s0_n_i" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_LOC "motor_pwm_o[0]" A13;
+IO_LOC "motor_in1_o[0]" A14;
+IO_LOC "motor_in2_o[0]" A15;
+IO_LOC "motor_pwm_o[1]" A16;
+IO_LOC "motor_in1_o[1]" A18;
+IO_LOC "motor_in2_o[1]" A19;
+IO_LOC "motor_pwm_o[2]" F13;
+IO_LOC "motor_in1_o[2]" F14;
+IO_LOC "motor_in2_o[2]" E13;
+IO_LOC "motor_pwm_o[3]" E14;
+IO_LOC "motor_in1_o[3]" C13;
+IO_LOC "motor_in2_o[3]" B13;
+IO_PORT "motor_pwm_o[0]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN DRIVE=8;
+IO_PORT "motor_pwm_o[1]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN DRIVE=8;
+IO_PORT "motor_pwm_o[2]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN DRIVE=8;
+IO_PORT "motor_pwm_o[3]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN DRIVE=8;
+IO_PORT "motor_in1_o[0]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN DRIVE=8;
+IO_PORT "motor_in1_o[1]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN DRIVE=8;
+IO_PORT "motor_in1_o[2]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN DRIVE=8;
+IO_PORT "motor_in1_o[3]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN DRIVE=8;
+IO_PORT "motor_in2_o[0]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN DRIVE=8;
+IO_PORT "motor_in2_o[1]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN DRIVE=8;
+IO_PORT "motor_in2_o[2]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN DRIVE=8;
+IO_PORT "motor_in2_o[3]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN DRIVE=8;
+IO_LOC "encoder_a_i[0]" D14;
+IO_LOC "encoder_b_i[0]" D15;
+IO_LOC "encoder_a_i[1]" C14;
+IO_LOC "encoder_b_i[1]" C15;
+IO_LOC "encoder_a_i[2]" B15;
+IO_LOC "encoder_b_i[2]" B16;
+IO_LOC "encoder_a_i[3]" D17;
+IO_LOC "encoder_b_i[3]" C17;
+IO_PORT "encoder_a_i[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "encoder_a_i[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "encoder_a_i[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "encoder_a_i[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "encoder_b_i[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "encoder_b_i[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "encoder_b_i[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_PORT "encoder_b_i[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_LOC "led_o[0]" L21;
+IO_LOC "led_o[1]" K21;
+IO_LOC "led_o[2]" K22;
+IO_LOC "led_o[3]" J22;
+IO_LOC "led_o[4]" H22;
+IO_LOC "led_o[5]" M21;
+IO_PORT "led_o[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "led_o[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "led_o[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "led_o[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "led_o[4]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "led_o[5]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_LOC "diag_uart_tx_o" M15;
+IO_PORT "diag_uart_tx_o" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// 蓝牙模块 TXD 经 3.3 V 电平确认后接 FPGA P7-23/E16。
+IO_LOC "bt_uart_rx_i" E16;
+IO_PORT "bt_uart_rx_i" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+// 蓝牙模块 RXD <- FPGA P7-24/D16，必须确认模块 RXD 输入允许 3.3 V。
+IO_LOC "bt_uart_tx_o" D16;
+IO_PORT "bt_uart_tx_o" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// ACG720 P7 expansion header from the supplied schematic/pin table:
+// GPIO0_22=B17 (P7-23) for Yahboom IMU TX -> FPGA RX.
+// GPIO0_23=B18 (P7-24) for ATK-MS53L2M ToF TX -> FPGA RX.
+// Both inputs are 3.3 V logic and remain independent of Bluetooth E16/D16.
+IO_LOC "imu_uart_rx_i" B17;
+IO_PORT "imu_uart_rx_i" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+IO_LOC "tof0_uart_rx_i" B18;
+IO_PORT "tof0_uart_rx_i" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+
+// ACG720 onboard CH340 TX -> FPGA RX, verified UART bringup.
+IO_LOC "pi_uart_rx_i" J21;
+IO_PORT "pi_uart_rx_i" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// Camera/HDMI dedicated pins from tested vendor example.
+IO_LOC "tmds_data_n[2]" M2;
+IO_PORT "tmds_data_n[2]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "tmds_data_n[1]" L4;
+IO_PORT "tmds_data_n[1]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "tmds_data_n[0]" K3;
+IO_PORT "tmds_data_n[0]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "tmds_data_p[2]" M3;
+IO_PORT "tmds_data_p[2]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "tmds_data_p[1]" L5;
+IO_PORT "tmds_data_p[1]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "tmds_data_p[0]" L3;
+IO_PORT "tmds_data_p[0]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "tmds_clk_n" J4;
+IO_PORT "tmds_clk_n" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "tmds_clk_p" K4;
+IO_PORT "tmds_clk_p" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "camera_pwdn" L1;
+IO_PORT "camera_pwdn" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "camera_rst_n" N20;
+IO_PORT "camera_rst_n" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "camera_xclk" M17;
+IO_PORT "camera_xclk" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "camera_sclk" M20;
+IO_PORT "camera_sclk" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "camera_sdat" L18;
+IO_PORT "camera_sdat" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "camera_data[7]" E1;
+IO_PORT "camera_data[7]" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC "camera_data[6]" D1;
+IO_PORT "camera_data[6]" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC "camera_data[5]" G2;
+IO_PORT "camera_data[5]" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC "camera_data[4]" F1;
+IO_PORT "camera_data[4]" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC "camera_data[3]" H2;
+IO_PORT "camera_data[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC "camera_data[2]" G1;
+IO_PORT "camera_data[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC "camera_data[1]" J1;
+IO_PORT "camera_data[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC "camera_data[0]" J2;
+IO_PORT "camera_data[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC "camera_pclk" B1;
+IO_PORT "camera_pclk" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC "camera_href" A1;
+IO_PORT "camera_href" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC "camera_vsync" B2;
+IO_PORT "camera_vsync" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+CLOCK_LOC "camera_pclk_d" BUFG = CLK;

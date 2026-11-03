@@ -1,0 +1,21 @@
+{
+  "enabled": false,
+  "purpose": "OFFLINE TEMPLATE ONLY; no vehicle measurements are supplied",
+  "firmware_requirement": "separately versioned visual-primary candidate, not original R12/K0C",
+  "calibration_file": null,
+  "required_calibration_document": {
+    "field_verified": false,
+    "target_class": "bottle",
+    "capture_age_bound_ms": null,
+    "calibration": {
+      "calibration_id": null,
+      "width": null, "height": null,
+      "fx_px": null, "fy_px": null, "cx_px": null, "cy_px": null,
+      "target_height_mm": null,
+      "tof_x_mm": null, "tof_y_mm": null, "tof_z_mm": null,
+      "tof_yaw_left_deg": null, "tof_pitch_down_deg": null,
+      "min_range_mm": null, "max_range_mm": null
+    }
+  }
+}
+

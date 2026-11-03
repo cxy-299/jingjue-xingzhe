@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "units": "mm",
+  "source": "User measured outer envelope including wheels, 2026-10-27",
+  "body_length_mm": 200,
+  "body_width_mm": 220,
+  "tof_mount_region": "front_center",
+  "tof_face_setback_from_front_mm": 0,
+  "tof_face_setback_source": "User confirmed sensing window flush with frontmost robot edge, 2026-10-27",
+  "tof_face_setback_convention": "positive behind frontmost body edge; negative ahead",
+  "rotation_center_confirmed": false,
+  "design_clearance_mm": 50,
+  "design_clearance_status": "initial design value, not measured stopping allowance",
+  "ground_distance_calibrated": false,
+  "ground_turn_calibrated": false,
+  "control_integration": "SIN12 R1 uses independent map 0x2613 and requires operator entry/confirmation of setback; changing this file does not authorize motion"
+}

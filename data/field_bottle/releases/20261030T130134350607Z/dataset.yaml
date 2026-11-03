@@ -1,0 +1,6 @@
+names:
+  0: bottle
+path: E:/gowin/ling_shu_vision/data/field_bottle/releases/20261030T130134350607Z
+test: images/test
+train: images/train
+val: images/val

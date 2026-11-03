@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "checks": 91,
+  "hardware_access": false,
+  "internal_forces": false,
+  "scope": "Actual full-system mapped ToF receiver and UART dependencies only",
+  "error_output_observable": false,
+  "checked_outputs": [
+    "v0_p",
+    "d0_p"
+  ],
+  "netlist_sha256": "f61d0ad4a9f59d11c705bac70d41073684313c6a075cc454c869ef8c2d9fd09a",
+  "source_sha256": "deee80804c7e5840cde63b8ed0acde4f732d405ed5b141e24407921cb4007865",
+  "child_modules": [
+    "tof_ms53l2m_ascii_uart",
+    "uart_rx_0"
+  ],
+  "ports": [
+    [
+      "input",
+      "",
+      "clk_50m_i_d"
+    ],
+    [
+      "input",
+      "",
+      "n177_5"
+    ],
+    [
+      "input",
+      "",
+      "tof0_uart_rx_i_d"
+    ],
+    [
+      "output",
+      "",
+      "v0_p"
+    ],
+    [
+      "output",
+      "[12:0] ",
+      "d0_p"
+    ]
+  ],
+  "reset_active_high": "n177_5",
+  "mapped_wrapper_sha256": "5ee6acb1d35307cffe643712250b0a74332285fc55d838866a7bf7d5cdb9bb40",
+  "mapped_source_sha256": "2c7d2ecdf9edc54daa4ec74b99f196968af0a87eec489e51af589577c01b8792",
+  "testbench_sha256": "919dc02d00b5b047c93c23ef99b6acacb51681d430eb520425912d129fc84bef"
+}

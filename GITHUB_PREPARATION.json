@@ -1,0 +1,29 @@
+{
+  "prepared_date": "2026-11-03",
+  "repository": "cxy-299/jingjue-xingzhe",
+  "base": "R20 validated competition source package",
+  "hardware_release": "R20 / K14 / 0x534E3254",
+  "frozen_rtl_constraints_verified": 53,
+  "current_pc_console_sha256": "edfdc3e6ef78f5cfe1275808e720294c5bc46557770650bd26b2820e50a2096a",
+  "mobile_status": "Project author confirmed physical-robot connection and control verified.",
+  "local_checks": {
+    "pure_python_protocol_navigation_and_gateway_tests": {
+      "passed": 20,
+      "failed": 0
+    },
+    "miniprogram_javascript_tests": {
+      "passed": 6,
+      "failed": 0
+    }
+  },
+  "changes": "Current PC console and WeChat project included; documentation and relative build entry preserved; no RTL algorithms, clocks or safety gates modified.",
+  "excludes": [
+    "installed dependencies",
+    "virtual environments",
+    "runtime caches and logs",
+    "private WeChat project configuration",
+    "developer tool installers",
+    "full historical build directories",
+    "presentation and video documents"
+  ]
+}

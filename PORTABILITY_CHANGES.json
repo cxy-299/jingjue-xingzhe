@@ -1,0 +1,46 @@
+[
+  {
+    "path": "fpga/sin12_hdmi/sin12_hdmi_system.gprj",
+    "change": "Only project file paths changed to relative; enabled file list, device and top-level source retained."
+  },
+  {
+    "path": "fpga/sin12_hdmi/build_sin12_hdmi.tcl",
+    "change": "Only cd/open_project paths made script-relative; all synthesis, clock and place/route options unchanged."
+  },
+  {
+    "path": "fpga/sin12_hdmi/build_sin12_hdmi_pnr.tcl",
+    "change": "Only cd/open_project paths made script-relative; all synthesis, clock and place/route options unchanged."
+  },
+  {
+    "path": "fpga/motor_bt_drive/run_modelsim_sin12_r17_two_stage.do",
+    "change": "Simulation source/output paths resolved relative to the submitted project; no bench assertions changed."
+  },
+  {
+    "path": "fpga/motor_bt_drive/run_modelsim_sin12_r18_left_detour.do",
+    "change": "Simulation source/output paths resolved relative to the submitted project; no bench assertions changed."
+  },
+  {
+    "path": "fpga/motor_bt_drive/run_modelsim_sin12_r19_left_detour.do",
+    "change": "Simulation source/output paths resolved relative to the submitted project; no bench assertions changed."
+  },
+  {
+    "path": "fpga/motor_bt_drive/run_modelsim_sin12_r20_adaptive.do",
+    "change": "Simulation source/output paths resolved relative to the submitted project; no bench assertions changed."
+  },
+  {
+    "path": "fpga/motor_bt_drive/run_modelsim_sin12_r20_range854.do",
+    "change": "Simulation source/output paths resolved relative to the submitted project; no bench assertions changed."
+  },
+  {
+    "path": "fpga/motor_bt_drive/run_modelsim_sin12_r20_tof_band_equivalence.do",
+    "change": "Simulation source/output paths resolved relative to the submitted project; no bench assertions changed."
+  },
+  {
+    "path": "fpga/nav/run_modelsim.do",
+    "change": "Simulation source/output paths resolved relative to the submitted project; no bench assertions changed."
+  },
+  {
+    "path": "fpga/nav/run_modelsim_batch.do",
+    "change": "Simulation source/output paths resolved relative to the submitted project; no bench assertions changed."
+  }
+]

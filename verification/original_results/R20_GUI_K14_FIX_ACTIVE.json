@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "completed_local": "2026-11-02T14:50:31.748658+08:00",
+  "root_cause": "Common parent GUI rejected supported R20/K14 packet as unknown; serial telemetry was actually present.",
+  "host_updated_byte_exact_from_R20_release": true,
+  "changes": [
+    {
+      "path": "src/comm/autonav.py",
+      "before_sha256": "fae2f4cbe5b4c252d1337cb6a47b467d8b2d6c5c901ff990998ad44db8554859",
+      "after_sha256": "7880488ecce7a6dd3a3a4c4e4e1b606251f2ffb7568ace2fe0d769732411c8e0",
+      "matches_pinned_R20_source": true
+    },
+    {
+      "path": "src/comm/pid_tuning.py",
+      "before_sha256": "c60e5b1e0a8d94370226e52b85077b57209a4e01c07d9ca327a4656cd32b090d",
+      "after_sha256": "3753d4203f7700baff52760addefeb563c1c00fffcc0f014e981ef1804819460",
+      "matches_pinned_R20_source": true
+    },
+    {
+      "path": "fpga/motor_bt_drive/pc_runtime_policy.py",
+      "before_sha256": "24871d5d6fcd55484b4b4903c155799d0cdca29402a01195b63147e92412a7e1",
+      "after_sha256": "c70dff0a8dbdd281be7a9919e43b68f10ef8dc2a83018469fc1c6829d9303cc2",
+      "matches_pinned_R20_source": true
+    },
+    {
+      "path": "fpga/motor_bt_drive/pc_unified_console.py",
+      "before_sha256": "fd21fdc62167646557df0e8d1aa50a9a5e72ea7800b208385229da1b6268928c",
+      "after_sha256": "71bd6f79f45a06c2752b3838d5c419086a7e4006d32f8e6acbdf01bd2114de46",
+      "matches_pinned_R20_source": true
+    }
+  ],
+  "total_tests": 37,
+  "isolated_cases": 17,
+  "legacy_contract_cases": 20,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "initial_test_attempt_failures_retained": true,
+  "GUI_restart_required": true,
+  "GUI_restarted_by_agent": false,
+  "real_serial_or_motor_commands_sent": false,
+  "SRAM_or_Flash_written": false,
+  "FPGA_source_changed": false,
+  "immutable_offline_archive_changed": false,
+  "vehicle_enable_confirmed": false,
+  "common_launcher": "E:\\gowin\\ling_shu_vision\\scripts\\start_sin12_console.cmd",
+  "evidence": "E:\\gowin\\ling_shu_vision\\output\\board\\SIN12_R20_GUI_K14_COMPAT_FIX_20261102_144549",
+  "evidence_files": 83,
+  "inventory_sha256": "6b856aa5b4463ba619c9d62e79e7b75a375c4d1621250b86cb0c0cb2ec055948"
+}
